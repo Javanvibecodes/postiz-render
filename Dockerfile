@@ -1,15 +1,14 @@
 FROM node:18
 
-# Set working directory
 WORKDIR /app
 
-# Clone your fork (adjust if repo name is different)
-RUN git clone https://github.com/javanvibecodes/postiz.git . \
- && yarn install --frozen-lockfile \
- && yarn build
+# Copy code that Render already pulled from your Git repo
+COPY . .
 
-# Expose port used by Postiz (Render will detect this)
+# Install dependencies and build the project
+RUN yarn install --frozen-lockfile
+RUN yarn build
+
 EXPOSE 3000
 
-# Start the app
 CMD ["yarn", "start"]
